@@ -1,7 +1,13 @@
 import express from "express";
 const app = express();
+const cors = require("cors");
 const port = 5000;
 import { container } from "./models";
+
+const corsOptions = {
+  origin: "http://localhost:3000"
+};
+app.use(cors(corsOptions));
 
 app.get("/health", (req, res) => {
   res.send("All good");
@@ -9,9 +15,6 @@ app.get("/health", (req, res) => {
 
 app.post("/item", (req, res) => {
   const item: any = req.body;
-  if(typeof item.name === "undefined") {
-    res.sendStatus(400);
-  }
 
   container.add(item);
   res.sendStatus(200);
