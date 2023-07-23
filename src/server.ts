@@ -13,13 +13,13 @@ app.get("/health", (req, res) => {
   res.send("All good");
 });
 
-app.post("/item", (req, res) => {
+app.post("/container/:containerId/item", (req, res) => {
   const item: any = req.body;
 
   container.add(item);
   res.sendStatus(200);
-})
+});
 
 app.listen(port, () => {
   console.log(`Server started. Listening on port ${port}`);
-})
+});
