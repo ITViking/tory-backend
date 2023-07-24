@@ -13,11 +13,16 @@ app.get("/health", (req, res) => {
   res.send("All good");
 });
 
-app.post("/container/:containerId/item", (req, res) => {
+app.post("/containers/:id/items", (req, res) => {
   const item: any = req.body;
 
   container.add(item);
   res.sendStatus(200);
+});
+
+app.get("/containers/:id/items", (req, res) => {
+  const containerInventory = container.list();
+  res.send(containerInventory);
 });
 
 app.listen(port, () => {
