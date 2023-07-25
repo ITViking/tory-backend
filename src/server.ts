@@ -2,7 +2,10 @@ import express from "express";
 const app = express();
 const cors = require("cors");
 const port = 5000;
-import { container } from "./models";
+import { itemsDb } from "./models";
+const items = require("./inventorySeed.json");
+
+let databaseIsSeed = false;
 
 const corsOptions = {
   origin: "http://localhost:3000"
@@ -16,15 +19,25 @@ app.get("/health", (req, res) => {
 app.post("/containers/:id/items", (req, res) => {
   const item: any = req.body;
 
-  container.add(item);
+  itemsDb.add(item);
   res.sendStatus(200);
 });
 
 app.get("/containers/:id/items", (req, res) => {
-  const containerInventory = container.list();
-  res.send(containerInventory);
+  const inventory = itemsDb.list();
+  res.send(inventory);
 });
 
+if(!databaseIsSeed) {
+  seedDatabase();
+  databaseIsSeed = true;
+}
+
 app.listen(port, () => {
+  console.log("seeding Database");
   console.log(`Server started. Listening on port ${port}`);
 });
+
+function seedDatabase() {
+  items.forEach(item => itemsDb.add(item.name));
+}
