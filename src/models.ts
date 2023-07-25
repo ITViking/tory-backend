@@ -1,10 +1,7 @@
 
 
-export const container = {
-    id: "123lkjasdfl",
-    name: "Box 1",
-    contains: new Array<string>,
-    add: (obj:string) => container.contains.push(obj)
+export const itemsDb = {
+    db: [],
+    add: (item: {id: number, name: string }) => itemsDb.db.push(item),
+    list: () => itemsDb.db
 }
-
-
