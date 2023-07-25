@@ -39,5 +39,5 @@ app.listen(port, () => {
 });
 
 function seedDatabase() {
-  items.forEach(item => itemsDb.add(item.name));
+  items.forEach(item => itemsDb.add(item));
 }
