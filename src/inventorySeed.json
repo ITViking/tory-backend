@@ -1,22 +1,22 @@
 [
   {
-    "id": 0,
+    "id": "0",
     "name": "hat"
   },
   {
-    "id": 1,
+    "id": "1",
     "name": "vase"
   },
   {
-    "id": 2,
+    "id": "2",
     "name": "bog"
   },
   {
-    "id": 3,
+    "id": "3",
     "name": "gryde"
   },
   {
-    "id": 4,
+    "id": "4",
     "name": "sovepose"
   }
 ]
