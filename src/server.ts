@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const port = 5000;
 import { itemsDb } from "./models";
+import { v4 as uuid } from "uuid";
 const items = require("./inventorySeed.json");
 
 let databaseIsSeed = false;
@@ -11,16 +12,16 @@ const corsOptions = {
   origin: "http://localhost:3000"
 };
 app.use(cors(corsOptions));
+app.use(express.json());
 
 app.get("/health", (req, res) => {
   res.send("All good");
 });
 
 app.post("/containers/:id/items", (req, res) => {
-  const item: any = req.body;
-
-  itemsDb.add(item);
-  res.sendStatus(200);
+  const newItem = { id: uuid(), name: req.body.item};
+  itemsDb.add(newItem);
+  res.send(newItem);
 });
 
 app.get("/containers/:id/items", (req, res) => {
