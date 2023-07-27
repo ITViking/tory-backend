@@ -4,7 +4,7 @@ const cors = require("cors");
 const port = 5000;
 import { itemsDb } from "./models";
 import { v4 as uuid } from "uuid";
-const items = require("./inventorySeed.json");
+const seedItems = require("./inventorySeed.json");
 
 let databaseIsSeed = false;
 
@@ -29,6 +29,16 @@ app.get("/containers/:id/items", (req, res) => {
   res.send(inventory);
 });
 
+app.post("/containers", (req, res) => {
+  const newContainer = req.body.container;
+  containersDb.add(newContainer);
+})
+
+app.get("/containers", (req, res) => {
+  const containers = containersDb.list();
+  res.send(containers);
+});
+
 if(!databaseIsSeed) {
   seedDatabase();
   databaseIsSeed = true;
@@ -40,5 +50,5 @@ app.listen(port, () => {
 });
 
 function seedDatabase() {
-  items.forEach(item => itemsDb.add(item));
+  seedItems.forEach(item => itemsDb.add(item));
 }
