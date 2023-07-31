@@ -8,6 +8,6 @@ export const itemsDb = {
 
 export const containersDb = {
     db: [],
-    add: //TODO
-    list: //TODO
+    add: (id: string, name: string) => containersDb.db.push({ id, name }),
+    list: () => containersDb.db
 }

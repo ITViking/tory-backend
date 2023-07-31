@@ -2,7 +2,7 @@ import express from "express";
 const app = express();
 const cors = require("cors");
 const port = 5000;
-import { itemsDb } from "./models";
+import { itemsDb, containersDb } from "./models";
 import { v4 as uuid } from "uuid";
 const seedItems = require("./inventorySeed.json");
 
@@ -31,7 +31,7 @@ app.get("/containers/:id/items", (req, res) => {
 
 app.post("/containers", (req, res) => {
   const newContainer = req.body.container;
-  containersDb.add(newContainer);
+  containersDb.add(uuid(), newContainer);
 })
 
 app.get("/containers", (req, res) => {
