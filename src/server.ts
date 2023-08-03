@@ -4,7 +4,8 @@ const cors = require("cors");
 const port = 5000;
 import { itemsDb, containersDb } from "./models";
 import { v4 as uuid } from "uuid";
-const seedItems = require("./inventorySeed.json");
+const seedItems = require("./seedItems.json");
+const seedContainers = require("./seedContainers.json");
 
 let databaseIsSeed = false;
 
@@ -30,8 +31,8 @@ app.get("/containers/:id/items", (req, res) => {
 });
 
 app.post("/containers", (req, res) => {
-  const newContainer = req.body.container;
-  containersDb.add(uuid(), newContainer);
+  const newContainerName = req.body.container;
+  containersDb.add({ id: uuid(), name: newContainerName });
 })
 
 app.get("/containers", (req, res) => {
@@ -51,4 +52,5 @@ app.listen(port, () => {
 
 function seedDatabase() {
   seedItems.forEach(item => itemsDb.add(item));
+  seedContainers.forEach(container => containersDb.add(container));
 }
